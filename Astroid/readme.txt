@@ -26,6 +26,7 @@ config
 File structure:
  ~/
  '- .config/
-    |- config
-    '- poll.sh
+    '- astroid/
+       |- config
+       '- poll.sh
 
