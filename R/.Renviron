@@ -1,0 +1,3 @@
+R_HOME_USER = /home/jv/Develop/R
+R_LIBS_USER = /home/jv/Develop/R/x86_64-pc-linux-gnu-library
+R_HISTFILE = /home/jv/Develop/R/Rhistory
