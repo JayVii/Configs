@@ -1,0 +1,25 @@
+[general]
+accounts = mine
+ui = syslog
+pythonfile = ~/.offlineimap.py
+maxsyncaccounts = 4
+
+[Account mine]
+localrepository = mine-local
+remoterepository = mine-remote
+autorefresh = 0
+
+[Repository mine-local]
+type = Maildir
+localfolders = ~/Mail
+
+[Repository mine-remote]
+type = IMAP
+remotehost = imap.localhost
+remoteuser = me@localhost
+remotepasseval = get_pass("~/Mail/me.gpg")
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+folderfilter = lambda foldername: foldername in ["INBOX", "Sent", "Trash", "Drafts"]
+keepalive = 60
+holdconnection = yes
