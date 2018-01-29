@@ -1,0 +1,54 @@
+! ===== XTerm ===============================
+! UTF-8 -------------------------------------
+XTerm.termName:                xterm-256color
+XTerm.vt100.locale:            true
+! Workarounds -------------------------------
+XTerm.vt100.metaSendsEscape:   true
+XTerm.vt100.backarrowKey:      false
+XTerm.ttyModes: erase          ^?
+! Scrollbar and savelines -------------------
+XTerm.vt100.saveLines:         10240
+XTerm.vt100.scrollBar:         false
+XTerm.vt100.scrollbar.width:   8
+! Colors ------------------------------------
+XTerm.vt100.foreground:        white
+XTerm.vt100.background:        rgb:2f/34/3f
+! Fonts -------------------------------------
+XTerm*faceName:                DejaVu Sans Mono
+XTerm.vt100.faceSize:          10
+! Selection & Copy --------------------------
+XTerm*highlightSelection: true
+XTerm*trimSelection: true
+XTerm.vt100.selectToClipboard: true
+XTerm.vt100.translations: #override \n\
+  Ctrl <Key> minus: smaller-vt-font() \n\
+  Ctrl <Key> plus: larger-vt-font() \n\
+  Ctrl <Key> 0: set-vt-font(d) \n\
+  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+  Shift <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY) \n\
+  <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
+  <Btn2Up>: insert-selection(PRIMARY)
+XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+XTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+! Themes ------------------------------------
+! Dracula
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
+! ===========================================
