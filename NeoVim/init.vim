@@ -53,11 +53,11 @@ set ffs=unix,dos,mac
 
 " Spell-check
 set nospell
-autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_GB
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en
 autocmd BufRead,BufNewFile *.tex setlocal spell spelllang=de
 autocmd BufRead,BufNewFile *.txt setlocal spell spelllang=de
-autocmd BufRead,BufNewFile *.html setlocal spell spelllang=en_GB
-autocmd BufRead,BufNewFile *.R setlocal spell spelllang=en_GB
+autocmd BufRead,BufNewFile *.html setlocal spell spelllang=en
+autocmd BufRead,BufNewFile *.R setlocal spell spelllang=en
 syntax spell toplevel "spell-bug workaround 
 
 " Auto-complete
@@ -160,7 +160,7 @@ Plug 'https://github.com/vim-airline/vim-airline-themes'
 Plug 'https://github.com/jalvesaq/Nvim-R'
 Plug 'https://github.com/jamessan/vim-gnupg'
 Plug 'https://github.com/coldfix/hexHighlight'
-"Plug 'https://github.com/lilydjwg/colorizer'
+Plug 'https://github.com/lilydjwg/colorizer'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 "Plug 'https://github.com/itchyny/calendar.vim' " Does no .ics import
 "Plug 'https://github.com/mattn/calendar-vim'
@@ -171,8 +171,8 @@ Plug 'https://github.com/Valloric/YouCompleteMe'
 "Plug 'https://github.com/AlessandroYorba/Sierra'
 "Plug 'https://github.com/AlessandroYorba/Arcadia'
 "Plug 'https://github.com/trevordmiller/nova-vim'
-Plug 'https://github.com/josuegaleas/jay'
-"Plug 'https://github.com/dracula/vim'
+"Plug 'https://github.com/josuegaleas/jay'
+Plug 'https://github.com/dracula/vim'
 call plug#end()
 
 " Colorschemes
@@ -181,16 +181,17 @@ call plug#end()
 "let g:alduin_Shout_Become_Ethereal = 1
 "let g:alduin_Shout_Fire_Breath = 0
 "" Dracula
-"colorscheme dracula
+colorscheme dracula
 "" Mustang
 "colorscheme mustang
 "" Jay
-colorscheme jay
+"colorscheme jay
 set background=dark
 
 " Nvim-R
 autocmd BufRead,BufNewFile *.R call StartR("R")
 "autocmd BufRead,BufNewFile *.R call RObjBrowser()
+autocmd BufRead,BufNewFile *.R nnoremap <silent> <C-M> :call SendLineToR("down")<CR>
 let R_objbr_place = "script,right" " Objectbrowser on the upper-right [script/console;left/right]
 let R_objbr_opendf = 0 " Show data.frames
 let R_objbr_openlist = 0 " Show lists
@@ -215,6 +216,27 @@ let g:airline_powerline_fonts=1
 " 6. Custom Commands
 """""""""""""""""""""""""
 
+" Footnotes (in Mails)
+function! Footnote()
+  execute "normal ma"
+  let footNoteText = input("enter text for footnote: ")
+  if exists("b:vimfootnotenumber")
+    let b:vimfootnotenumber = b:vimfootnotenumber + 1
+    let cr = ""
+  else
+    let b:vimfootnotenumber = 1
+    let cr = "\<CR>"
+  endif
+  let b:pos = line('.').' | normal! '.virtcol('.').'|'.'4l'
+  exe "normal a[".b:vimfootnotenumber."]\<Esc>G"
+  if search("-- $", "b")
+    exe "normal O".cr."[".b:vimfootnotenumber."] " . footNoteText
+  else
+    exe "normal o".cr."[".b:vimfootnotenumber."] " . footNoteText
+  endif
+  execute "normal `a"
+endfunction
+command FN :call Footnote()
 " Compile LaTeX
 function CompileLatex()
   ! latexmk -bibtex -pdf "%"
@@ -269,8 +291,6 @@ vmap <silent> <C-a> 0
 
 nnoremap <silent> <C-s> /
 nnoremap <silent> <C-r> ?
-
-nnoremap <silent> <C-M> :call SendLineToR("down")<CR>
 
 " switch between tabs (alt + arrowkeys)
 "nnoremap <A-Left> :tabprevious<CR>
